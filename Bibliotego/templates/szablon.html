@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteka</title>
+</head>
+<body>
+    <div>
+        <h1> Biblioteka online z systemem rekomendacyjnym </h1>
+    </div>
+    <div style="clear:both"> </div>
+    <div style="width:200px; float:left">
+        <h3> Gatunki książek </h3>
+        {% for gat in abc %}
+        <p></p>
+            <p><a href = "/kategorie/{{ gat.id }}"> {{ gat.nazwa }} </a> </p>
+        {% endfor %}
+    </div>
+    <div style="width:700px; float:left">
+        {% block produkt %} {% endblock produkt %}
+    </div>
+
+
+
+</body>
+</html>
