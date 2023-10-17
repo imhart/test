@@ -74,6 +74,11 @@
   </head>
 
   <body>
+  <div>
+    <h1>
+      <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+    </h1>
+  </div>
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="user_card">
@@ -147,21 +152,21 @@
 rejestracja
 
 <form method="POST" action="">
-    {% csrf_token %}
+   {% csrf_token %}
 
-    {{form.username.label}}
-    {{form.username}}
+   {{form.username.label}}
+   {{form.username}}
 
-    {{form.mail.label}}
-    {{form.email}}
+   {{form.mail.label}}
+   {{form.email}}
 
-    {{form.password1.label}}
-    {{form.password1}}
+&lt;!&ndash;    {{form.password1.label}}&ndash;&gt;
+&lt;!&ndash;    {{form.password1}}&ndash;&gt;
 
-    {{form.password2.label}}
-    {{form.password2}}
+&lt;!&ndash;    {{form.password2.label}}&ndash;&gt;
+&lt;!&ndash;    {{form.password2}}&ndash;&gt;
 
-<!--    {{form.as_p}}   komenda wywołująca wszystkie potrzebne miejsca do rejestracji-->
+&lt;!&ndash;    {{form.as_p}}   komenda wywołująca wszystkie potrzebne miejsca do rejestracji&ndash;&gt;
 
-    <input type="submit" name="Create User">
+   <input type="submit" name="Create User">
 </form>

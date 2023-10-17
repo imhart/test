@@ -2,13 +2,26 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Biblioteka</title>
+    <title>Bibliotego</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}">
 </head>
 <body>
     <div>
-        <h1> Biblioteka online z systemem rekomendacyjnym </h1>
+        <h1>
+            <div>
+                <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+            </div>
+            <div>
+                <a href="{% url 'logowanie' %}" class="ml-2">Logowanie</a>
+            </div>
+            <div>
+                <a href="{% url 'rejestracja' %}" class="ml-2">Zajesjestruj konto</a>
+            </div>WYSZUKIWARKA WYLOGUJ
+        </h1>
     </div>
     <div style="clear:both"> </div>
+
     <div style="width:200px; float:left">
         <h3> Gatunki książek </h3>
         {% for gat in abc %}
@@ -16,9 +29,10 @@
             <p><a href = "/kategorie/{{ gat.id }}"> {{ gat.nazwa }} </a> </p>
         {% endfor %}
     </div>
-    <div style="width:700px; float:left">
+    <div style="width:500px; float:left">
         {% block produkt %} {% endblock produkt %}
     </div>
+    <div style="clear:both"></div>
 
 
 

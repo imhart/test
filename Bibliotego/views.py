@@ -1,38 +1,34 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from .models import Bibliotego
 from .models import Gatunki
 
 
+
 def index(request):
     zapytanie = Gatunki.objects.all()
     dane = {'kategorie': zapytanie}
-    dane1 = [i for i in zapytanie]
-    dane2 ={'zapytanie': zapytanie}
-    jeden = Bibliotego.objects.get(pk=1)   # wyszukiwanie na podstawie id obiektu w bibliotece
-    gat = Bibliotego.objects.filter(Gatunki=1)  # filtrowanie na podstawie id gatunktów
-    # autor = Bibliotego.objects.filter(Autorzy=1)  # filtrowani na podstawie autorwów po id autorów
-    gat_name1 = Gatunki.objects.get(id=1)  # filtrowanie na podstawie gatunku i wypisanie gatunku
-    gat_name2 = Gatunki.objects.get(id=2)  # filtrowanie na podstawie gatunku i wypisanie gatunku
-    gat_name3 = Gatunki.objects.get(id=3)  # filtrowanie na podstawie gatunku i wypisanie gatunku
-    # null = Bibliotego.objects.filter(Gatunki__isnull=True)
-    # zawiera = Bibliotego.objests.filter(opis__icontains='fantasy') # nie działające
-
     return render(request, 'szablon.html', {'abc': zapytanie})
     # return HttpResponse(gat)
 
 def kategorie (request, id):
-    kategorie_user = Gatunki.objects.get(pk=id)
-    return HttpResponse(kategorie_user.nazwa)
+    kategoria_user = get_object_or_404(Gatunki, pk=id)
+    kategoria_ksiazki = Bibliotego.objects.filter(Gatunki = kategoria_user)
+    gatunki = Gatunki.objects.all()
+    dane = {'kategoria_user': kategoria_user,
+            'kategoria_ksiazki': kategoria_ksiazki,
+            'abc': gatunki}
+    return render(request, 'kategorie_ksiazki.html', dane)
 
 def produkt (request, id):
-    produkt_user = Bibliotego.objects.get(pk=id)
+    produkt_user = get_object_or_404(Bibliotego, pk=id)
     gatunki = Gatunki.objects.all()
-    dane = {'produkt_user': produkt_user, 'gatunki': gatunki}
+    dane = {'produkt_user': produkt_user, 'abc': gatunki}
     return render(request, 'ksiazka.html', dane)
 
 def logowanie (request):
@@ -41,13 +37,15 @@ def logowanie (request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        messages.info(request, 'Usedsadrname OR')
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect('/1')
+            return redirect('glowna')
         else:
-            message.info(request, 'Username OR')
+            messages.info(request, 'Username OR')
 
     context = {}
     return render(request, 'logowanie.html', context)
@@ -64,3 +62,5 @@ def rejestracja (request):
     context = {'form':form}
     return render(request, 'rejestracja.html', context)
         # Create your views here.
+
+        

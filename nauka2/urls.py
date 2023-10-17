@@ -22,7 +22,7 @@ from Bibliotego.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', index, name='glowna'),
     path('kategorie/<id>/', kategorie, name='kategorie'),
     path('produkt/<id>/', produkt, name='produkt'),
     path('l', logowanie, name='logowanie'),
