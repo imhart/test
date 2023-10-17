@@ -1,3 +1,9 @@
+<!-- <form method="POST" accept="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" name="Create User">
+</form> -->
+
 <!DOCTYPE html>
 <html>
 
@@ -88,7 +94,7 @@
           <div class="d-flex justify-content-center form_container">
 
             <form method="POST" action="">
-                {% csrf_token %}
+              {% csrf_token %}
               <div class="input-group mb-3">
                 <div class="input-group-append">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -138,7 +144,7 @@
       form_fields[1].placeholder = 'Nazwa użytkownika..';
       form_fields[2].placeholder = 'Wprowadź  hasło...';
       form_fields[3].placeholder = 'Wprowadź ponownie hasło...';
-<!--      form_fields[4].placeholder = 'Wprowadź ponownie hasło...';  dodatkowe okno do wprowadzania dla maila-->
+      form_fields[4].placeholder = 'Wprowadź ponownie hasło...';  dodatkowe okno do wprowadzania dla maila
 
 
       for (var field in form_fields) {
@@ -149,7 +155,7 @@
   </body>
 
 </html>
-rejestracja
+<!-- rejestracja
 
 <form method="POST" action="">
    {% csrf_token %}
@@ -169,4 +175,4 @@ rejestracja
 &lt;!&ndash;    {{form.as_p}}   komenda wywołująca wszystkie potrzebne miejsca do rejestracji&ndash;&gt;
 
    <input type="submit" name="Create User">
-</form>
+</form> -->

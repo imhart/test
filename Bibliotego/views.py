@@ -2,12 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 
+# Jeśli nie używasz CsrfViewMiddleware, musisz użyć csrf_protect we wszystkich widokach, które używają tagu szablonu csrf_token, a także tych, które akceptują dane POST.
+from django.views.decorators.csrf import csrf_protect 
+
+from django import forms
+from django.contrib.auth.models import User
+
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .models import Bibliotego
 from .models import Gatunki
-
 
 
 def index(request):
@@ -50,14 +56,21 @@ def logowanie (request):
     context = {}
     return render(request, 'logowanie.html', context)
 
+
+# Przeniesienia z pliku forms z powodów braku działania połączenia
+class CreateUserForm(UserCreationForm):
+    email = forms.EmailField(required=True) 
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
 def rejestracja (request):
-    form = UserCreationForm()
+    form = CreateUserForm()
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-
 
     context = {'form':form}
     return render(request, 'rejestracja.html', context)
