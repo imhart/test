@@ -1,40 +1,93 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Bibliotego</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css'%}">
+  <meta charset="UTF-8">
+  <title>Bibliotego</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'style.css'%}">
 </head>
+
 <body>
-    <div>
-        <h1>
-            <div>
-                <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+      </a>
+      <a class="navbar-brand" href="#">
+        <img src="/Bibliotego/static/book.png">
+      </a>
+      <a class="navbar-brand" href="#">
+        <div>
+          <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
             </div>
-            <div>
-                <a href="{% url 'logowanie' %}" class="ml-2">Logowanie</a>
-            </div>
-            <div>
-                <a href="{% url 'rejestracja' %}" class="ml-2">Zajesjestruj konto</a>
-            </div>WYSZUKIWARKA WYLOGUJ
-        </h1>
-    </div>
-    <div style="clear:both"> </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
+        </form>
+      </div>
+    </nav>
+    <h1>
+      <div>
+        <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+      </div>
+      <div>
+        <a href="{% url 'logowanie' %}" class="ml-2">Logowanie</a>
+      </div>
+      <div>
+        <a href="{% url 'rejestracja' %}" class="ml-2">Zajesjestruj konto</a>
+      </div>WYSZUKIWARKA WYLOGUJ
+      <div>
+        <span>Witaj, {{request.user}} </span>
+        <span><a href="{% url 'wyloguj' %}">Wyloguj</a></span>
+      </div>
+    </h1>
+  </div>
+  <div style="clear:both"> </div>
 
-    <div style="width:200px; float:left">
-        <h3> Gatunki książek </h3>
-        {% for gat in abc %}
-        <p></p>
-            <p><a href = "/kategorie/{{ gat.id }}"> {{ gat.nazwa }} </a> </p>
-        {% endfor %}
-    </div>
-    <div style="width:500px; float:left">
-        {% block produkt %} {% endblock produkt %}
-    </div>
-    <div style="clear:both"></div>
-
-
-
+  <div style="width:200px; float:left">
+    <h3> Gatunki książek </h3>
+    {% for gat in abc %}
+    <p></p>
+    <p><a href="/kategorie/{{ gat.id }}"> {{ gat.nazwa }} </a> </p>
+    {% endfor %}
+  </div>
+  <div style="width:500px; float:left">
+    {% block produkt %} {% endblock produkt %}
+  </div>
+  <div style="clear:both"></div>
 </body>
+
 </html>

@@ -18,6 +18,8 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import path
 from Bibliotego.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -26,5 +28,7 @@ urlpatterns = [
     path('kategorie/<id>/', kategorie, name='kategorie'),
     path('produkt/<id>/', produkt, name='produkt'),
     path('l', logowanie, name='logowanie'),
+    path('w', wyloguj, name='wyloguj'),
     path('r', rejestracja, name='rejestracja'),
-]
+    path('nav', nav, name='nav'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

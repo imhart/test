@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>
+            <div>
+                <a href="{% url 'glowna' %}">Bibliotego online z systemem rekomendacyjnym</a>
+            </div>
+            <div>
+                <a href="{% url 'logowanie' %}" class="ml-2">Logowanie</a>
+            </div>
+            <div>
+                <a href="{% url 'rejestracja' %}" class="ml-2">Zajesjestruj konto</a>
+            </div>WYSZUKIWARKA WYLOGUJ
+            <div>
+                <span>Witaj, {{request.user}} </span>
+                <span><a href="{% url 'wyloguj' %}">Wyloguj</a></span>
+            </div>
+        </h1>
+    </div>
+</body>
+</html>

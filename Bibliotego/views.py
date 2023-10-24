@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from django.contrib.auth import logout
+
 from .models import Bibliotego
 from .models import Gatunki
 
@@ -43,18 +45,22 @@ def logowanie (request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        messages.info(request, 'Usedsadrname OR')
-
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('glowna')
         else:
-            messages.info(request, 'Username OR')
+            messages.info(request, 'Nazwa użytkownika lub hasło jest niepoprawne')
 
     context = {}
     return render(request, 'logowanie.html', context)
+
+
+def wyloguj(request):
+    logout(request)
+    return redirect('logowanie')
+
 
 
 # Przeniesienia z pliku forms z powodów braku działania połączenia
@@ -71,9 +77,16 @@ def rejestracja (request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Konto zostało utworzone dla ' + user)
+            
+            return redirect('/l')
 
     context = {'form':form}
     return render(request, 'rejestracja.html', context)
         # Create your views here.
+
+def nav(request):
+    return render(request, 'navbar.html')
 
         

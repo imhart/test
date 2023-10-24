@@ -1,6 +1,11 @@
 
 from django.db import models
+from django.contrib.auth.models import User
 
+class Venue(models.Model):
+    venue_image = models.ImageField(null=True, blank=True, upload_to="images/")
+    def __str__(self):
+        return self.name
 
 class Autorzy(models.Model):
     def __str__(self):
