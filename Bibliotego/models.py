@@ -2,11 +2,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Venue(models.Model):
-    venue_image = models.ImageField(null=True, blank=True, upload_to="images/")
-    def __str__(self):
-        return self.name
-
 class Autorzy(models.Model):
     def __str__(self):
         return self.nazwa
@@ -38,6 +33,7 @@ class Bibliotego(models.Model):
     nazwa = models.CharField(max_length=100)
     opis = models.TextField(blank=True)
     cena = models.DecimalField(max_digits=12, decimal_places=2)
+    zdjęcie = models.ImageField(null=True, blank=True, upload_to="images/")  # Pole do dodawania zdjęć
 
     # Tworzenie nazwy do pojedyńczej i mnogiej do książek w bibliotece
 class Meta:

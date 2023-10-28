@@ -30,5 +30,8 @@ urlpatterns = [
     path('l', logowanie, name='logowanie'),
     path('w', wyloguj, name='wyloguj'),
     path('r', rejestracja, name='rejestracja'),
-    path('nav', nav, name='nav'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('nav', nav, name='nav'),   
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
