@@ -1,13 +1,19 @@
 {% extends 'szablon.html' %}
-
+{% load static %}
 {% block produkt %}
 
-    {% if kategoria_ksiazki %}
+{% if kategoria_ksiazki %}
+<div class="row ">
+    {% for produkt in kategoria_ksiazki %}
 
-        {% for produkt in kategoria_ksiazki %}
+    <div class="col-lg-4">
+        <img src="/media/images/ERAGON.png" alt="">
+        <div class="box-element product">
             <p><a href="/produkt/{{ produkt.id }}/">{{ produkt.nazwa }}</a></p>
-        {% endfor %}
-        {% else %}
-        {% endif %}
-
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    {% endif %}
+</div>
 {% endblock produkt %}

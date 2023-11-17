@@ -59,3 +59,18 @@ logo:visited {
     border-radius: 50%;
     font-size: 14px;
 }
+
+
+.place_of_species {
+    width: 220px;
+    padding-top: 120px;
+    padding-left: 20px;
+    float: left;
+}
+
+.place_of_books {
+    width: 1200px;
+    padding-top: 120px;
+    padding-left: 100px;
+    float: left;
+}
