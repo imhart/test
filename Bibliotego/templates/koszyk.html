@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Koszyk</title>
+    <link rel="stylesheet" href="{% static 'koszyk.css' %}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h1>Koszyk</h1>
+
+        <div class="produkty">
+            <!-- Tutaj dodajemy produkty z koszyka -->
+            <div class="produkt">
+                <img src="/media/images/book1.png" alt="Książka 1">
+                <p>Nazwa Książki 1</p>
+                <p>Cena: 29.99 PLN</p>
+                <button class="usun">Usuń z koszyka</button>
+            </div>
+
+            <div class="produkt">
+                <img src="/media/images/book2.png" alt="Książka 2">
+                <p>Nazwa Książki 2</p>
+                <p>Cena: 39.99 PLN</p>
+                <button class="usun">Usuń z koszyka</button>
+            </div>
+        </div>
+
+        <div class="podsumowanie">
+            <h3>Podsumowanie</h3>
+            <p>Liczba produktów: 2</p>
+            <p>Łączna cena: 69.98 PLN</p>
+            <button class="zamow">Zamów</button>
+        </div>
+    </div>
+</body>
+
+</html>

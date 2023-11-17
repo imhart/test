@@ -1,0 +1,23 @@
+{% extends 'szablon.html' %}
+
+{% block content %}
+  <h1>Wyniki wyszukiwania dla "{{ query }}"</h1>
+  {% for produkt_user in wyniki %}
+    <div>
+      {% if produkt_user %}
+        <h1>{{ produkt_user.nazwa }}</h1>
+        <p>Autor: {{ produkt_user.Autorzy }}</p>
+        <p>Gatunek: {{ produkt_user.Gatunki }}</p>
+        <p>Opis: {{ produkt_user.opis }}</p>
+        <p>Cena: {{ produkt_user.cena }}</p>
+        {% if produkt_user.zdjecie %}
+          <img src="{{ produkt_user.zdjecie.url }}" alt="{{ produkt_user.nazwa }}"/>
+        {% else %}
+          <p>Brak zdjęcia</p>
+        {% endif %}
+      {% else %}
+        <p>Nie ma produktu</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,5 +1,61 @@
 body {
-    background-color: #60d2d2 ;
+    background-color: #60d2d2;
     font-size: 15px;
-    color: black ;
+    color: black;
+}
+
+floatRight {
+    float: right;
+}
+
+a,
+a:hover,
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.logo,
+logo:hover,
+logo:visited {
+    width: 100px;
+    height: 70px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    float: left;
+}
+
+.navbar-brand img {
+    margin-right: 15px;
+    margin-left: 15px;
+    /* Ustaw odpowiedni margines między obrazem a tekstem */
+}
+
+.logo2 {
+    float: left;
+    margin-top: 25px;
+
+}
+
+.test {
+    padding-top: 300px;
+}
+
+.koszyk {
+    padding-left: 40px;
+}
+
+
+#cart-total {
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: red;
+    width: 22px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 14px;
 }

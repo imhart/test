@@ -10,11 +10,11 @@
 <p> Opis: {{ produkt_user.opis }} </p>
 <p> Cena: {{ produkt_user.cena }} </p>
 {% if produkt_user.zdjecie %}
-<img src="{% static produkt.images %}" alt="Example Image" />
+<img src="{{ produkt_user.zdjecie.url }}" alt="{{ produkt_user.nazwa }}"/>
 {% else %}
 <p>Brak zdjęcia</p>
 {% endif %}
 {% else %}
-<p> Nie ma produktu </p>
+<p>Nie ma produktu</p>
 {% endif %}
 {% endblock produkt %}

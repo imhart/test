@@ -3,9 +3,11 @@
 
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 
 	<style>
@@ -16,6 +18,7 @@
 			height: 100%;
 			background: #7abecc !important;
 		}
+
 		.user_card {
 			width: 350px;
 			margin-top: auto;
@@ -37,7 +40,7 @@
 			margin-top: 20px;
 		}
 
-		#form-title{
+		#form-title {
 			color: #fff;
 
 		}
@@ -47,27 +50,30 @@
 			background: #33ccff !important;
 			color: white !important;
 		}
+
 		.login_btn:focus {
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
+
 		.login_container {
 			padding: 0 2rem;
 		}
+
 		.input-group-text {
 			background: #f7ba5b !important;
 			color: white !important;
 			border: 0 !important;
 			border-radius: 0.25rem 0 0 0.25rem !important;
 		}
+
 		.input_user,
 		.input_pass:focus {
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
 
-		#messages{
-			background-color: grey;
+		#messages {
 			color: #fff;
 			padding: 10px;
 			margin-top: 10px;
@@ -75,12 +81,14 @@
 	</style>
 
 </head>
+
 <body>
-  <div>
-	  <h1>
-		  <a href="{% url 'glowna' %}" class="link">Bibliotego online z systemem rekomendacyjnym</a>
-	  </h1>
-  </div>
+	{% include 'navbar.html' %}
+	<div>
+		<h1>
+			<a href="{% url 'glowna' %}" class="link">Bibliotego online z systemem rekomendacyjnym</a>
+		</h1>
+	</div>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -102,21 +110,21 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-								<input type="password" name="password" placeholder="Hasło..." class="form-control" >
+							<input type="password" name="password" placeholder="Hasło..." class="form-control">
 						</div>
 
-							<div class="d-flex justify-content-center mt-3 login_container">
-				 				<input class="btn login_btn" type="submit" value="Zaloguj sie">
-				   			</div>
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<input class="btn login_btn" type="submit" value="Zaloguj sie">
+						</div>
 					</form>
 
 				</div>
 				<div id="messages">
 					{% for message in messages %}
-						<p>{{message}}</p>
+					<p>{{message}}</p>
 					{% endfor %}
 				</div>
-				
+
 				<!-- {% for message in messages %}
 					<p id="message">{{message}}</p>
 				{% endfor %} -->

@@ -79,14 +79,40 @@ def rejestracja (request):
             form.save()
             user = form.cleaned_data.get('username')
             messages.success(request, 'Konto zostało utworzone dla ' + user)
-            
+
             return redirect('/l')
+        else:
+            messages.error(request, 'Nazwa użytkownika, e-mail, hasło lub hasło2 jest niepoprawne')
 
     context = {'form':form}
+    # messages.info(request, 'Nazwa użytkownika, e-mail, hasło lub hasło2 jest niepoprawne')
     return render(request, 'rejestracja.html', context)
         # Create your views here.
 
+
+def wyszukiwanie(request):
+    query = request.GET.get('Search')
+    if query:
+        try:
+            # Spróbuj przekształcić query na liczbę
+            query_id = int(query)
+            # Jeśli się udało, wyszukaj po id
+            wyniki = Bibliotego.objects.filter(id=query_id)
+        except ValueError:
+            # Jeśli nie udało się przekształcić na liczbę, wyszukaj po nazwie
+            wyniki = Bibliotego.objects.filter(nazwa__icontains=query)
+    else:
+        # Jeśli zapytanie nie zostało podane, zwróć wszystkie książki
+        wyniki = Bibliotego.objects.all()
+
+    return render(request, 'wyniki_wyszukiwania.html', {'wyniki': wyniki, 'query': query})
+
+
+
 def nav(request):
     return render(request, 'navbar.html')
+
+def koszyk(request):
+    return render(request, 'koszyk.html')
 
         
