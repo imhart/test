@@ -8,15 +8,20 @@ from django.views.decorators.csrf import csrf_protect
 from django import forms
 from django.contrib.auth.models import User
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
+from .forms import AddToCartForm
+
+
 from django.contrib import messages
 
 from django.contrib.auth import logout
 
-from .models import Bibliotego
-from .models import Gatunki
-
+from .models import Bibliotego, Gatunki, Books, Cart, CartItem
 
 def index(request):
     zapytanie = Gatunki.objects.all()
@@ -25,16 +30,19 @@ def index(request):
     # return HttpResponse(gat)
 
 def kategorie (request, id):
+    page = request.GET.get('page', 1)
+
     kategoria_user = get_object_or_404(Gatunki, pk=id)
-    kategoria_ksiazki = Bibliotego.objects.filter(Gatunki = kategoria_user)
+    kategoria_ksiazki = Books.objects.filter(gatunki = kategoria_user)
     gatunki = Gatunki.objects.all()
+    paginator = Paginator(kategoria_ksiazki, 9)
     dane = {'kategoria_user': kategoria_user,
-            'kategoria_ksiazki': kategoria_ksiazki,
+            'kategoria_ksiazki': paginator.page(page),
             'abc': gatunki}
     return render(request, 'kategorie_ksiazki.html', dane)
 
 def produkt (request, id):
-    produkt_user = get_object_or_404(Bibliotego, pk=id)
+    produkt_user = get_object_or_404(Books, pk=id)
     gatunki = Gatunki.objects.all()
     dane = {'produkt_user': produkt_user, 'abc': gatunki}
     return render(request, 'ksiazka.html', dane)
@@ -92,27 +100,120 @@ def rejestracja (request):
 
 def wyszukiwanie(request):
     query = request.GET.get('Search')
+    page = request.GET.get('page', 1)
     if query:
         try:
-            # Spróbuj przekształcić query na liczbę
-            query_id = int(query)
             # Jeśli się udało, wyszukaj po id
-            wyniki = Bibliotego.objects.filter(id=query_id)
+            wyniki = Books.objects.filter(book_title__icontains=query)
         except ValueError:
             # Jeśli nie udało się przekształcić na liczbę, wyszukaj po nazwie
-            wyniki = Bibliotego.objects.filter(nazwa__icontains=query)
+            wyniki = Books.objects.all()
     else:
         # Jeśli zapytanie nie zostało podane, zwróć wszystkie książki
-        wyniki = Bibliotego.objects.all()
-
-    return render(request, 'wyniki_wyszukiwania.html', {'wyniki': wyniki, 'query': query})
+        wyniki = Books.objects.all()
+    paginator = Paginator(wyniki, 9)
+    gatunki = Gatunki.objects.all()
+    return render(request, 'kategorie_ksiazki.html', {'kategoria_ksiazki': paginator.page(page),'abc': gatunki, 'query': query})
 
 
 
 def nav(request):
     return render(request, 'navbar.html')
 
-def koszyk(request):
-    return render(request, 'koszyk.html')
+
+@login_required
+def cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    return render(request, 'koszyk.html', {'cart_items': cart_items})
+
+@login_required
+def add_to_cart(request, book_id):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    book = get_object_or_404(Books, pk=book_id)
+
+    if request.method == 'POST':
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, book=book)
+            cart_item.quantity += quantity
+            cart_item.save()
+    else:
+        form = AddToCartForm()
+
+    return redirect('cart')
+
+@login_required
+def remove_from_cart(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, pk=cart_item_id)
+    cart_item.delete()
+    return redirect('cart')
+
+
+from django.shortcuts import render, redirect
+from .models import Cart, CartItem, Books
+
+@login_required
+def dodaj_do_koszyka(request):
+    if request.method == 'POST':
+        produkt_id = request.POST.get('produkt_id')
+        if produkt_id:
+            ksiazka = Books.objects.get(id=produkt_id)
+
+            # Sprawdź, czy dla tego użytkownika istnieje już rekord w koszyku
+            koszyk, created = Cart.objects.get_or_create(user=request.user)
+            
+            # Sprawdź, czy ta książka już istnieje w koszyku, jeśli tak, zwiększ ilość
+            item, item_created = CartItem.objects.get_or_create(cart=koszyk, book=ksiazka)
+            if not item_created:
+                item.quantity += 1
+                item.save()
+
+            return redirect('/', produkt_id=produkt_id)
+    
+    # Jeśli coś poszło nie tak
+    return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def koszyk(request):
+#     return render(request, 'koszyk.html')
+
+# def ksiazka_detail(request, ksiazka_id):
+#     ksiazka = get_object_or_404(Bibliotego, id=ksiazka_id)
+#     return render(request, 'ksiazka.html', {'produkt_user': ksiazka})
+
+# @login_required
+# def dodaj_do_koszyka(request, ksiazka_id):
+#     ksiazka = get_object_or_404(Bibliotego, id=ksiazka_id)
+#     koszyk, created = Bibliotego.objects.get_or_create(user=request.user)
+#     koszyk.ksiazki.add(ksiazka)
+#     return JsonResponse({'status': 'Dodano do koszyka'})
+
+# @login_required
+# def koszyk(request):
+#     koszyk, created = Bibliotego.objects.get_or_create(user=request.user)
+#     ksiazki = koszyk.ksiazki.all()
+#     return render(request, 'koszyk.html', {'ksiazki': ksiazki, 'koszyk': koszyk})
+
 
         

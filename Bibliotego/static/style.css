@@ -4,10 +4,6 @@ body {
     color: black;
 }
 
-floatRight {
-    float: right;
-}
-
 a,
 a:hover,
 a:visited {
@@ -74,3 +70,41 @@ logo:visited {
     padding-left: 100px;
     float: left;
 }
+
+
+
+.btn-11 {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+    max-width: 250px;
+    margin: 1rem auto;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+  }
+
+  .btn-11:after {
+    box-sizing: border-box;
+    transition: 0.4s ease-in-out;
+  }
+  .btn-11 i,em,b,strong,
+  .btn-11 span 
+  {
+    transition: none;
+  }
+  .btn-11:after {
+    z-index: -1;
+  }
+  .btn-11 {
+    font-family: 'Open Sans', Helvetica, arial, sans-serif;
+    text-align: center;
+    background-color: #eeeeee;
+  }
+  
+  .btn-11 *:before,
+
+  .btn-11 *:after {
+    box-sizing: border-box;
+    transition: 0.5s ease-in-out;
+  }

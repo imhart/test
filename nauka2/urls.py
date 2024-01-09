@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib import admin
-from django.urls import path
 from Bibliotego.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -31,9 +30,18 @@ urlpatterns = [
     path('w', wyloguj, name='wyloguj'),
     path('r', rejestracja, name='rejestracja'),
     path('nav', nav, name='nav'), 
-    path('koszyk', koszyk, name='koszyk'),
     path('wyszukiwanie', wyszukiwanie, name='wyszukiwanie'),
+
+    path('cart', cart, name='cart'),
+    path('add-to-cart/<int:book_id>/', add_to_cart, name='add_to_cart'),
+    path('remove-from-cart/<int:cart_item_id>/', remove_from_cart, name='remove_from_cart'),
+
+
+    # path('ksiazka/<int:ksiazka_id>/', ksiazka_detail, name='ksiazka_detail'),
+    path('dodaj_do_koszyka', dodaj_do_koszyka, name='dodaj_do_koszyka'),
+    # Dodaj inne url'e
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

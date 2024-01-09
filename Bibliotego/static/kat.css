@@ -1,0 +1,23 @@
+
+body {
+    background-color: #60d2d2;
+    font-size: 15px;
+    color: black;
+}
+
+.katramka{
+    border-radius:20px;
+    border: 5px #60d2d2 solid;
+}
+
+.katramka:hover{
+    border-radius:20px;
+    border: 5px white solid;
+}
+
+.bg
+{
+    background-image: url('/media/images/ERAGON.png');
+    background-size: cover; 
+    background-position: center; 
+}
